@@ -181,7 +181,7 @@ def extract_feature(ori_file_name, folder_path):
                 get_value(noiseEnergy_essentia, index, 0),
                 get_value(noisiness_essentia, index, 0)
                 ))
-        feature_pd.loc[index] = [tot_list[i] for i in range(44)]
+        feature_pd.loc[index] = [tot_list[i] for i in range(45)]
         index += 1
         
     #Pandas to csv
