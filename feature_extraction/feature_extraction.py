@@ -43,6 +43,7 @@ def extract_feature(ori_file_name, folder_path):
     index = 0
     feature_length = 0
     specSlope_essentia = []
+    pitch_essentia = []
     harEnergy_essentia = []
     noiseEnergy_essentia = []
     noisiness_essentia = []
@@ -111,7 +112,8 @@ def extract_feature(ori_file_name, folder_path):
         pitch_out, pitch_confidence = pitch(frame)
         if pitch_confidence==0:
             pitch_out = 0
-        
+        pitch_essentia.append((pitch_out))
+
         # Spectrum of current frame is used to extract spectral peak feature
         # Spectral frequency and spectral magnitude will be returned
         specfrequency, specmagnitude = specPeak(spectrum(frame))
@@ -155,7 +157,7 @@ def extract_feature(ori_file_name, folder_path):
                        "de_MFCC_7", "de_MFCC_8", "de_MFCC_9", "de_MFCC_10", 
                        "de_MFCC_11", "de_MFCC_12", "de_MFCC_13", "de_MFCC_14", 
                        "de_MFCC_15", "de_MFCC_16", "Centroid", "Spread", "Energy", 
-                       "FLatness", "Slope", "Inharmonicity", "Tristimulus1", "Tristimulus2", 
+                       "Flatness", "Slope", "Pitch", "Inharmonicity", "Tristimulus1", "Tristimulus2",
                        "Tristimulus3", "Harmonic Energy", "Noise Energy", "Noisiness"]
     feature_pd = pd.DataFrame(columns = spectral_column)
     
@@ -170,6 +172,7 @@ def extract_feature(ori_file_name, folder_path):
                 get_value(energy_librosa, index, 0),
                 get_value(specFlatness_librosa, index, 0),
                 get_value(specSlope_essentia, index, 0),
+                get_value(pitch_essentia, index, 0),
                 get_value(inharmonicity_essentia, index, 0),
                 get_value(tristimulus1_essentia, index, 0),
                 get_value(tristimulus2_essentia, index, 0),
